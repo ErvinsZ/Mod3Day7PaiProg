@@ -38,6 +38,13 @@
 
   </head>
   <body>
+    <div class="container">
+      <select name="users" id="userData">
+
+      </select>
+      <input type="search" id="userInput"/>
+      <input type="button" id="searchUser" value="Search"/>
+    </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -45,9 +52,48 @@
     <script>
         window.onload = async function (){
             let response = await fetch("https://jsonplaceholder.typicode.com/users");
-            let data =    await response.json();
-            console.log(data)
+            let data =    await response.json();   
+
+            let reference = document.querySelector("#userData")
+            data.forEach(user =>{
+              reference.innerHTML += `
+              <option>${user.name} / ${user.username} / ${user.email}</option>
+              `
+            })
+
+            
+            let searchButton = document.querySelector("#searchUser")
+            searchButton.addEventListener("click",function(){
+              let reference = document.querySelector("#userData")
+              let userInput = document.querySelector("#userInput").value
+              if(userInput.toLowerCase() === "name"){
+                reference.innerHTML=""
+
+                data.forEach(user =>{
+                  reference.innerHTML += `
+                  <option value="${user.name}">${user.name}</option>
+                  `
+                })
+              }else if(userInput.toLowerCase() === "email"){
+                reference.innerHTML=""
+
+                data.forEach(user =>{
+                  reference.innerHTML += `
+                  <option value="${user.email}">${user.email}</option>
+                  `
+                })
+              }else if(userInput.toLowerCase() === "username"){
+                reference.innerHTML=""
+
+                data.forEach(user =>{
+                  reference.innerHTML += `
+                  <option value="${user.username}">${user.username}</option>
+                  `
+                })
+              }
+            })
         }
+
         
     </script>
 
