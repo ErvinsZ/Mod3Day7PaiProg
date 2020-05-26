@@ -101,9 +101,19 @@
 
                 data.forEach(user =>{
                   reference.innerHTML += `
-                  <option value="${user.name}">${user.name}</option>
+                  <option value="${user.name}" id = "${user.id}">${user.name}</option>
                   `
                 })
+
+                let optionReference = document.querySelectorAll("#userData option")
+                for(let i = 1; i<optionReference.length; i++){
+                  optionReference[0].setAttribute("selected")
+                  optionReference[i].addEventListener("click", function(){
+                    optionReference[i].classList("selected")
+                  }) 
+          
+                }
+
               }else if(userInput.toLowerCase() === "email"){
                 reference.innerHTML=""
 
