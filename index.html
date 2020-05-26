@@ -44,6 +44,7 @@
       </select>
       <input type="search" id="userInput"/>
       <input type="button" id="searchUser" value="Search"/>
+      <input type="button" id="sortButton" value="Sort"/>
     </div>
 
     <!-- Optional JavaScript -->
@@ -59,6 +60,35 @@
               reference.innerHTML += `
               <option>${user.name} / ${user.username} / ${user.email}</option>
               `
+            })
+            
+            let sortButton = document.querySelector("#sortButton")
+            var sorted = false
+            sortButton.addEventListener("click",function(){
+              
+              if(sorted){
+                let reference = document.querySelectorAll("#userData option")
+                let array= []
+                for(let i=0; i<reference.length; i++){
+                  array.push(reference[i].value)
+                }
+                array.sort().reverse()
+                for(let i=0; i<reference.length; i++){
+                  reference[i].innerHTML=array[i]
+                }
+                sorted=false
+              }else{
+                let reference = document.querySelectorAll("#userData option")
+                let array= []
+                for(let i=0; i<reference.length; i++){
+                  array.push(reference[i].value)
+                }
+                array.sort()
+                for(let i=0; i<reference.length; i++){
+                  reference[i].innerHTML=array[i]
+                }
+                sorted=true
+              }
             })
 
             
@@ -92,8 +122,7 @@
                 })
               }
             })
-            let data =    await response.json();
-            console.log(data)
+
             let array= []
             let newObject = {
               "street": "Victor Plains",
@@ -105,11 +134,12 @@
                 "lng": "-34.4618"
             }
         }
-        for (let key in newObject) {
-        array.push(newObject[key]);
-        
-}
-console.log(array)
+          for (let key in newObject) {
+            array.push(newObject[key]);
+          
+          }
+          console.log(array)
+
         }
 
         
